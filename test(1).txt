@@ -1,0 +1,22 @@
+No	Name		Size	Brand		Price	Qty	Supplier	Contact
+10001	Cheese Burger 	275g	Iron Man	14.99	80	Tony Stark	012-345 6789
+10002	Cap's Shield	5kg	Cap America	45.51	3	Steve Rogers	017-646 7928
+10003	Strombreaker	800kg	ThunderGod	90.90	6	Thor Odinson	017-454 5990
+10004	Bow n Arrow	50g	Hawkeye clint	11.99	130	Clint Barton	010-213 4567
+10005	Purple Pants	XXL	The Hulk	20.20	22	Bruce banner	011-1178 6583
+10006	Intelligence	5pg	Black Widow	40.00	9	Nat Romanoff	012-637 2495
+10007	Love drug	100mL	Scarlet Witch	39.99	44	Wanda Max	014-846 7829
+10008	Gold Cape	F	Jarvis Ultron	34.45	31	Vision		012-628 8392
+10009	Wing set	1kg	Falcon Sam	89.10	72	Sam Wilson	017-628 7392
+10010	Ex-wife Missile	10g	War Machine	99.99	29	James Rhodes	012-639 7390
+10011	Ancient Books	800pg	Dr Strange	69.69	6	Stephen 	011-739 7329
+10012	Vibranium	5kg	Black Panther	85.40	93	T'Challa	012-729 7283
+10013	Spiderweb	10kg	Spiderman	21.90	28	Peter Parker	019-829 8329
+10014	Giant Suit	250g	Antman Lang	50.35	2	Scott Lang	010-739 7382
+10015	Element Gun	300g	Star Lord	43.89	12	Chris Pratt	017-739 8203
+10016	Branches	500g	I'm Groot	20.50	34	Vin Diesel	012-846 8202
+10017	Prosthetic Arm	1kg	Winter Soldier	71.80	11	Bucky Barnes	011-9576 0563
+10018	Eye Ball	200g	Agent Fury	29.80	82	Nick Fury	016-976 0563
+10019	Captain Pager	50g	Captain Marvel	29.99	10	Thanos		019-832 0439
+10020	Comic Books	500pg	Marvel Father	39.60	95	Stan Lee	012-923 4725
+10029	ark cocoa	00g	ERSHEY'S	M9		ERSHEY'S MSIA	6-89437882
