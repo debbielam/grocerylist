@@ -203,6 +203,7 @@ void delete_item(INFO product[], int& rows)
 	cout << "\n1   Item number\n       OR\n2   Item name";
 	cout << "\n\nEnter your choice: ";
 	cin >> ans;
+	check = 0;
 	if (ans == 1)
 	{
 		cout << "\nEnter item number to be deleted: ";
@@ -212,7 +213,7 @@ void delete_item(INFO product[], int& rows)
 		{
 			if (strcmp(deleting, product[i].number) == 0)
 			{
-				check++;
+				check=1;
 				cout << "\n---INFORMATION OF ITEM---" << endl;
 				cout << "Item number: " << product[i].number << endl;
 				cout << "Item name: " << product[i].name << endl;
@@ -225,11 +226,12 @@ void delete_item(INFO product[], int& rows)
 				j = i;
 				cout << "Confirm to delete (Y/N)? ";
 				cin >> confirmation;
+				break; //once found, no need to cont loop
 			}
-			if (strcmp(deleting, product[i].number) != 0)
-				check = 0;
+//			if (strcmp(deleting, product[i].number) != 0)
+//				check = 0;
 		}
-		if (check != 0)
+		if (check)
 		{
 			if (confirmation == 'y' || confirmation == 'Y')
 			{
@@ -249,7 +251,7 @@ void delete_item(INFO product[], int& rows)
 			if (confirmation == 'n' || confirmation == 'N')
 				cout << "\nACTION DENIED! NO ITEM DELETED!" << endl;
 		}
-		if (check == 0)
+		else
 			cout << "\nNO RECORD FOUND! NO ITEM DELETED!" << endl;
 	}
 	return;
