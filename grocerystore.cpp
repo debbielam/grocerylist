@@ -235,7 +235,7 @@ void delete_item(INFO product[], int& rows)
 		{
 			if (confirmation == 'y' || confirmation == 'Y')
 			{
-				for (j = 0; j < rows; j++)
+				for (j = 0; j < rows-1; j++)
 				{
 					strcpy_s(product[j].number, product[j + 1].number);
 					strcpy_s(product[j].name, product[j + 1].name);
