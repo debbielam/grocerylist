@@ -178,6 +178,7 @@ void update(INFO product[], int& rows)
 	{
 		cout << "\nEnter item number of product to be updated: ";
 		cin >> insert;
+		found = 0; // always reset your flag
 		for (i = 0; i < rows; i++)
 		{
 			if (strcmp(insert, product[i].number) == 0)
@@ -194,11 +195,12 @@ void update(INFO product[], int& rows)
 				cout << "\nWhich info do you want to update (1-8)? ";
 				cin >> select;
 				found = 1;
+				break; // always remember to break the loop after found
 			}
 		}
 		if (found == 0)
 			cout << "\nNO RECORD FOUND! NOTHING UPDATED!" << endl;
-		if (found == 1)
+		else
 		{
 			switch (select)
 			{
