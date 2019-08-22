@@ -18,7 +18,8 @@ typedef struct
 
 void display(INFO product[], int rows);
 void search_number(INFO product[], int rows);
-void search_keyword(INFO product[], int rows);
+void low_inventories(INFO product[], int rows);
+void update(INFO product[], int& rows);
 void add_item(INFO product[], int& rows);
 void delete_item(INFO product[], int& rows);
 void exit(INFO product[], int rows);
@@ -55,15 +56,16 @@ int main(void)
 
 		do
 		{
-			cout << "\t\t\t*********WELCOME TO THE AMAZING LUCKY99 GROCERY STORE*********" << endl;
+			cout << "\n\n\t\t\t*********WELCOME TO LUCKY99 GROCERY STORE*********" << endl;
 			cout << "\n\t\t\t\tHERE ARE THE ACTIONS THAT YOU CAN DO:" << endl;
 			cout << "\n\t\t\t\t1   List all products" << endl;
-			cout << "\t\t\t\t2   Search product" << endl;
-			cout << "\t\t\t\t3   Show low inventories" << endl;
-			cout << "\t\t\t\t4   Update inventory" << endl;
-			cout << "\t\t\t\t5   Add new product" << endl;
-			cout << "\t\t\t\t6   Delete product" << endl;
-			cout << "\t\t\t\t7   Exit" << endl;
+			cout << "\t\t\t\t2   Search product by item number" << endl;
+			cout << "\t\t\t\t3   Search product by keyword" << endl;
+			cout << "\t\t\t\t4   Show low inventories" << endl;
+			cout << "\t\t\t\t5   Update inventory" << endl;
+			cout << "\t\t\t\t6   Add new product" << endl;
+			cout << "\t\t\t\t7   Delete product" << endl;
+			cout << "\t\t\t\t8   Save & Exit" << endl;
 			cout << "\n\t\t\t\tPlease enter your choice: ";
 			cin >> choice;
 
@@ -73,36 +75,36 @@ int main(void)
 				display(item, index);
 				break;
 			case 2:
-			{
-				cout << "1   Search by item number" << endl;
-				cout << "\t\tOR" << endl;
-				cout << "2   Search by keyword" << endl;
-				cin >> search_selection;
-				if (search_selection == 1)
-					search_number(item, index);
-				if (search_selection == 2)
-					search_keyword(item, index);
+				search_number(item, index);
 				break;
-			}
-			case 5:
-				add_item(item, index);
+			case 3: 
+				break;
+			case 4: 
+				low_inventories(item, index);
+				break;
+			case 5: 
+				update(item, index);
 				break;
 			case 6:
-				delete_item(item, index);
+				add_item(item, index);
 				break;
 			case 7:
+				delete_item(item, index);
+				break;
+			case 8:
 				exit(item, index);
 				cout << "\n\t\t\t\tGOODBYE! HAVE A NICE DAY!\n";
 				break;
 			default: cout << "INVALID INPUT!" << endl;
 			}
-		} while (choice != 7);
+		} while (choice != 8);
 	}
 	return 0;
 }
 
 void display(INFO product[], int rows)
 {
+	system("cls");
 	int i;
 	cout << "\nITEM NUMBER\tITEM NAME\t\tSIZE(kg)\tBRAND\t\tPRICE(RM)\tQUANTITY\tSUPPLIER\tCONTACT INFO" << endl;
 	cout << "===================================================================================================================================" << endl;
@@ -118,6 +120,7 @@ void display(INFO product[], int rows)
 
 void search_number(INFO product[], int rows)
 {
+	system("cls");
 	char ans[7], reply;
 	int i, j;
 	do
@@ -142,52 +145,145 @@ void search_number(INFO product[], int rows)
 	return;
 }
 
-void search_keyword(INFO product[], int rows)
+
+void low_inventories(INFO product[], int rows)
 {
-	int i, j;
-	char input[21];
-	cout << "Enter item name (or keyword): ";
-	cin >> input;
-	for (j = 0; j < rows; j++)
+	system("cls");
+	for (int i = 0; i < rows; i++)
 	{
-		if (strcmp(input, product[j].name) == 0)
+		int len = strlen(product[i].quantity);
+		if (len == 1 || ((strcmp(product[i].quantity, "10")) == 0))
 		{
-			cout << "\nITEM NUMBER\tITEM NAME\tSIZE(kg)\tBRAND\tPRICE(RM)\tQUANTITY\tSUPPLIER\tCONTACT INFO" << endl;
-			cout << "====================================================================================================================" << endl;
-			cout << "\t" << product[j].number << "\t" << product[j].name << "\t"
-				<< product[j].size << "\t" << product[j].brand << "\t"
-				<< product[j].price << "\t" << product[j].quantity << "\t"
-				<< product[j].supplier << "\t" << product[j].contact << endl;
+			cout << "\nITEM NUMBER\tITEM NAME\t\tSIZE(kg)\tBRAND\t\tPRICE(RM)\tQUANTITY\tSUPPLIER\tCONTACT INFO" << endl;
+			cout << "===================================================================================================================================" << endl;
+			cout << fixed << setprecision(2);
+			cout << left << product[i].number << "\t"
+				<< left << product[i].name << "\t"
+				<< left << product[i].size << "\t"
+				<< left << product[i].brand << "\t"
+				<< right << product[i].price << "\t"
+				<< right << product[i].quantity << "\t"
+				<< left << setw(25) << product[i].supplier << "\t"
+				<< left << setw(12) << product[i].contact << endl;
 		}
+		else
+			cout << "There is no low inventories. " << endl;
 	}
 }
 
+void update(INFO product[], int& rows)
+{
+	system("cls");
+	int i, j, select, found = 0;
+	char ans[7], reply;
+	INFO toupdate[1];
+	do
+	{
+		cout << "\nEnter item number of product to be updated: ";
+		cin >> ans;
+		for (i = 0; i < rows; i++)
+		{
+			if (strcmp(ans, product[i].number) == 0)
+			{
+				cout << "\n---INFORMATION OF ITEM---" << endl;
+				cout << "1   Item number: " << product[i].number << endl;
+				cout << "2   Item name: " << product[i].name << endl;
+				cout << "3   Item size: " << product[i].size << endl;
+				cout << "4   Item brand: " << product[i].brand << endl;
+				cout << "5   Item price: " << product[i].price << endl;
+				cout << "6   Item quantity: " << product[i].quantity << endl;
+				cout << "7   Supplier name: " << product[i].supplier << endl;
+				cout << "8   Supplier contact: " << product[i].contact << endl;
+				cout << "\nWhich info do you want to update (1-8)? ";
+				cin >> select;
+				found = 1;
+			}
+		}
+		if (found == 0)
+			cout << "\nNO RECORD FOUND! NOTHING UPDATED!" << endl;
+		if (found == 1)
+		{
+			switch (select)
+			{
+			case 1:
+				cout << "\nEnter new item number: ";
+				cin.ignore();
+				cin.getline(toupdate[1].number, 7);
+				strcpy_s(product[j].number, toupdate[1].number);
+				break;
+			case 2:
+				cout << "\nEnter new item name: ";
+				cin.ignore();
+				cin.getline(toupdate[1].name, 21);
+				strcpy_s(product[j].name, toupdate[1].name);
+				break;
+			case 3:
+				cout << "\nEnter new item size: ";
+				cin.ignore();
+				cin.getline(toupdate[1].size, 7);
+				strcpy_s(product[j].size, toupdate[1].size);
+				break;
+			case 4:
+				cout << "\nEnter new item brand: ";
+				cin.ignore();
+				cin.getline(toupdate[1].brand, 21);
+				strcpy_s(product[j].brand, toupdate[1].brand);
+				break;
+			case 5:
+				cout << "\nEnter new price: ";
+				cin.ignore();
+				cin.getline(toupdate[1].price, 7);
+				strcpy_s(product[j].price, toupdate[1].price);
+				break;
+			case 6:
+				cout << "\nEnter new quantity: ";
+				cin.ignore();
+				cin.getline(toupdate[1].quantity, 7);
+				strcpy_s(product[j].quantity, toupdate[1].quantity);
+				break;
+			case 7:
+				cout << "\nEnter new supplier name: ";
+				cin.ignore();
+				cin.getline(toupdate[1].supplier, 21);
+				strcpy_s(product[j].supplier, toupdate[1].supplier);
+				break;
+			case 8:
+				cout << "\nEnter new supplier contact: ";
+				cin.ignore();
+				cin.getline(toupdate[1].contact, 21);
+				strcpy_s(product[j].contact, toupdate[1].contact);
+				break;
+			}
+			cout << "\nITEM INFO UPDATED SUCCESSFULLY!" << endl;
+		}		
+		cout << "\nAnything else to update (Y/N)? ";
+		cin >> reply;
+	} while (reply == 'Y' || reply == 'y');
+	return;
+}
+
+
 void add_item(INFO product[], int& rows)
 {
+	system("cls");
+	int length;
 	cout << "\n***NEW PRODUCT***" << endl;
 	cout << "Enter item number: ";
 	cin.ignore();
 	cin.getline(product[rows].number, 7);
 	cout << "\nEnter item name: ";
-	cin.ignore();
 	cin.getline(product[rows].name, 21);
 	cout << "\nEnter size: ";
-	cin.ignore();
 	cin.getline(product[rows].size, 7);
 	cout << "\nEnter brand: ";
-	cin.ignore();
 	cin.getline(product[rows].brand, 21);
 	cout << "\nEnter price: ";
-	cin.ignore();
 	cin.getline(product[rows].price, 7);
 	cout << "\nEnter quantity: ";
-	cin.ignore();
 	cin.getline(product[rows].quantity, 7);
 	cout << "\nEnter supplier name: ";
-	cin.ignore();
 	cin.getline(product[rows].supplier, 21);
 	cout << "\nEnter supplier contact info: ";
-	cin.ignore();
 	cin.getline(product[rows].contact, 21);
 
 	cout << "\nNEW ITEM ADDED SUCCESSFULLY! " << endl;
@@ -197,15 +293,10 @@ void add_item(INFO product[], int& rows)
 
 void delete_item(INFO product[], int& rows)
 {
+	system("cls");
 	int ans, i, j, check = 0;
-	char deleting[7], confirmation;
-	cout << "\n\nDo you want to delete item by" << endl;
-	cout << "\n1   Item number\n       OR\n2   Item name";
-	cout << "\n\nEnter your choice: ";
-	cin >> ans;
-	check = 0;
-	if (ans == 1)
-	{
+	char deleting[7], confirmation, again;
+	do{
 		cout << "\nEnter item number to be deleted: ";
 		cin.ignore();
 		cin.getline(deleting, 7);
@@ -213,7 +304,7 @@ void delete_item(INFO product[], int& rows)
 		{
 			if (strcmp(deleting, product[i].number) == 0)
 			{
-				check=1;
+				check = 1;
 				cout << "\n---INFORMATION OF ITEM---" << endl;
 				cout << "Item number: " << product[i].number << endl;
 				cout << "Item name: " << product[i].name << endl;
@@ -228,14 +319,14 @@ void delete_item(INFO product[], int& rows)
 				cin >> confirmation;
 				break; //once found, no need to cont loop
 			}
-//			if (strcmp(deleting, product[i].number) != 0)
-//				check = 0;
+			//			if (strcmp(deleting, product[i].number) != 0)
+			//				check = 0;
 		}
 		if (check)
 		{
 			if (confirmation == 'y' || confirmation == 'Y')
 			{
-				for (j = 0; j < rows-1; j++)
+				for (j = 0; j < rows - 1; j++)
 				{
 					strcpy_s(product[j].number, product[j + 1].number);
 					strcpy_s(product[j].name, product[j + 1].name);
@@ -247,18 +338,22 @@ void delete_item(INFO product[], int& rows)
 					strcpy_s(product[j].contact, product[j + 1].contact);
 				}
 				rows--;
+				cout << "\nITEM SUCCESSFULLY DELETED!\n" << endl;
 			}
 			if (confirmation == 'n' || confirmation == 'N')
 				cout << "\nACTION DENIED! NO ITEM DELETED!" << endl;
 		}
 		else
 			cout << "\nNO RECORD FOUND! NO ITEM DELETED!" << endl;
-	}
+		cout << "Anything else to delete (Y/N)? ";
+		cin >> again;
+	} while (again == 'y' || again == 'Y');
 	return;
 }
 
 void exit(INFO product[], int rows)
 {
+	system("cls");
 	ofstream outfile("test(1).txt");
 	if (!outfile)
 	{
