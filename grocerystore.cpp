@@ -148,52 +148,49 @@ void search_number(INFO product[], int rows)
 
 void low_inventories(INFO product[], int rows)
 {
+	int tick = 0;
 	system("cls");
+	cout << "\nITEM NUMBER\tITEM NAME\tSIZE(kg)\tBRAND\t\t\tPRICE(RM)\tQUANTITY\tSUPPLIER\tCONTACT INFO" << endl;
+	cout << "===================================================================================================================================" << endl;
 	for (int i = 0; i < rows; i++)
 	{
 		int len = strlen(product[i].quantity);
 		if (len == 1 || ((strcmp(product[i].quantity, "10")) == 0))
 		{
-			cout << "\nITEM NUMBER\tITEM NAME\t\tSIZE(kg)\tBRAND\t\tPRICE(RM)\tQUANTITY\tSUPPLIER\tCONTACT INFO" << endl;
-			cout << "===================================================================================================================================" << endl;
-			cout << fixed << setprecision(2);
-			cout << left << product[i].number << "\t"
-				<< left << product[i].name << "\t"
-				<< left << product[i].size << "\t"
-				<< left << product[i].brand << "\t"
-				<< right << product[i].price << "\t"
-				<< right << product[i].quantity << "\t"
-				<< left << setw(25) << product[i].supplier << "\t"
-				<< left << setw(12) << product[i].contact << endl;
+			cout << product[i].number << "\t\t" << product[i].name << "\t"
+				<< product[i].size << "\t\t" << product[i].brand << "\t\t"
+				<< product[i].price << "\t" << setw(15) << right << product[i].quantity << "\t\t"
+				<< product[i].supplier << "\t" << product[i].contact << endl;
+			tick = 1;
 		}
-		else
-			cout << "There is no low inventories. " << endl;
 	}
+	if (tick == 0)
+		cout << "\nNO LOW INVENTORY ITEMS FOUND!" << endl;
 }
 
 void update(INFO product[], int& rows)
 {
 	system("cls");
 	int i, j, select, found = 0;
-	char ans[7], reply;
+	char insert[7], respond;
 	INFO toupdate[1];
 	do
 	{
 		cout << "\nEnter item number of product to be updated: ";
-		cin >> ans;
+		cin >> insert;
 		for (i = 0; i < rows; i++)
 		{
-			if (strcmp(ans, product[i].number) == 0)
+			if (strcmp(insert, product[i].number) == 0)
 			{
+				j = i;
 				cout << "\n---INFORMATION OF ITEM---" << endl;
-				cout << "1   Item number: " << product[i].number << endl;
-				cout << "2   Item name: " << product[i].name << endl;
-				cout << "3   Item size: " << product[i].size << endl;
-				cout << "4   Item brand: " << product[i].brand << endl;
-				cout << "5   Item price: " << product[i].price << endl;
-				cout << "6   Item quantity: " << product[i].quantity << endl;
-				cout << "7   Supplier name: " << product[i].supplier << endl;
-				cout << "8   Supplier contact: " << product[i].contact << endl;
+				cout << "1   Item name: " << product[i].name << endl;
+				cout << "2   Item size: " << product[i].size << endl;
+				cout << "3   Item brand: " << product[i].brand << endl;
+				cout << "4   Item price: " << product[i].price << endl;
+				cout << "5   Item quantity: " << product[i].quantity << endl;
+				cout << "6   Supplier name: " << product[i].supplier << endl;
+				cout << "7   Supplier contact: " << product[i].contact << endl;
 				cout << "\nWhich info do you want to update (1-8)? ";
 				cin >> select;
 				found = 1;
@@ -206,48 +203,42 @@ void update(INFO product[], int& rows)
 			switch (select)
 			{
 			case 1:
-				cout << "\nEnter new item number: ";
-				cin.ignore();
-				cin.getline(toupdate[1].number, 7);
-				strcpy_s(product[j].number, toupdate[1].number);
-				break;
-			case 2:
 				cout << "\nEnter new item name: ";
 				cin.ignore();
 				cin.getline(toupdate[1].name, 21);
 				strcpy_s(product[j].name, toupdate[1].name);
 				break;
-			case 3:
+			case 2:
 				cout << "\nEnter new item size: ";
 				cin.ignore();
 				cin.getline(toupdate[1].size, 7);
 				strcpy_s(product[j].size, toupdate[1].size);
 				break;
-			case 4:
+			case 3:
 				cout << "\nEnter new item brand: ";
 				cin.ignore();
 				cin.getline(toupdate[1].brand, 21);
 				strcpy_s(product[j].brand, toupdate[1].brand);
 				break;
-			case 5:
+			case 4:
 				cout << "\nEnter new price: ";
 				cin.ignore();
 				cin.getline(toupdate[1].price, 7);
 				strcpy_s(product[j].price, toupdate[1].price);
 				break;
-			case 6:
+			case 5:
 				cout << "\nEnter new quantity: ";
 				cin.ignore();
 				cin.getline(toupdate[1].quantity, 7);
 				strcpy_s(product[j].quantity, toupdate[1].quantity);
 				break;
-			case 7:
+			case 6:
 				cout << "\nEnter new supplier name: ";
 				cin.ignore();
 				cin.getline(toupdate[1].supplier, 21);
 				strcpy_s(product[j].supplier, toupdate[1].supplier);
 				break;
-			case 8:
+			case 7:
 				cout << "\nEnter new supplier contact: ";
 				cin.ignore();
 				cin.getline(toupdate[1].contact, 21);
@@ -257,8 +248,8 @@ void update(INFO product[], int& rows)
 			cout << "\nITEM INFO UPDATED SUCCESSFULLY!" << endl;
 		}		
 		cout << "\nAnything else to update (Y/N)? ";
-		cin >> reply;
-	} while (reply == 'Y' || reply == 'y');
+		cin >> respond;
+	} while (respond == 'Y' || respond == 'y');
 	return;
 }
 
@@ -389,3 +380,4 @@ void exit(INFO product[], int rows)
 		outfile.close();
 	}
 }
+
